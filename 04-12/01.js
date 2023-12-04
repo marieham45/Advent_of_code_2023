@@ -7,7 +7,6 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11`;
 
 // helpers
 const splitIntoLines = (str) => str.split("\n");
-const splitIntoCharacters = (str) => str.split("");
 
 const getScore = (str) => {
   const numbers = str.split(": ")[1];
