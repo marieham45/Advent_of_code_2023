@@ -84,38 +84,33 @@ const getMapped = (input, map) => {
       if (seed > sourceStart + range - 1 || seedEnd < sourceStart) {
         if (i === map.length - 1) {
           result.push([seed, seedEnd]);
+          break;
         }
-      } else if (
-        seed >= sourceStart &&
-        seed <= sourceStart + range - 1 &&
-        seedEnd <= sourceStart + range - 1 &&
-        seedEnd >= sourceStart
-      ) {
+      } else if (seed >= sourceStart && seed <= sourceStart + range - 1) {
         newStartValue = destinationStart + (seed - sourceStart);
         newEndValue = destinationStart + (seedEnd - sourceStart);
         result.push([newStartValue, newEndValue]);
-
         break;
       } else {
         if (seed < sourceStart && seedEnd > sourceStart + range - 1) {
           newStartValue = destinationStart;
           newEndValue = destinationStart + range - 1;
           result.push([newStartValue, newEndValue]);
-
           getMapping([seed, sourceStart - 1], iteration + 1);
           getMapping([sourceStart + range, seedEnd], iteration + 1);
+          break;
         } else if (seed >= sourceStart && seedEnd > sourceStart + range - 1) {
           newStartValue = destinationStart + (seed - sourceStart);
           newEndValue = newStartValue + range - 1;
           result.push([newStartValue, newEndValue]);
-
           getMapping([sourceStart + range, seedEnd], iteration + 1);
+          break;
         } else {
           newStartValue = destinationStart;
           newEndValue = destinationStart + (seedEnd - sourceStart);
           result.push([newStartValue, newEndValue]);
-
           getMapping([seed, sourceStart - 1], iteration + 1);
+          break;
         }
       }
     }
