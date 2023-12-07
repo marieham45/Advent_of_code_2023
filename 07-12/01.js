@@ -26,9 +26,8 @@ const isFiveOfAKind = (handWithBid) => {
   const [hand, bid] = handWithBid;
 
   return (
-    splitIntoCharacters(hand).filter(
-      (card, _, arr) => (card === arr[0]).length
-    ) === hand.length
+    splitIntoCharacters(hand).filter((card, _, arr) => card === arr[0])
+      .length === hand.length
   );
 };
 
@@ -145,10 +144,12 @@ const isOnePair = (handWithBid) => {
   );
 };
 
-console.log(handsWithBids.map(isHighCard));
-console.log(handsWithBids.map(isFiveOfAKind));
-console.log(handsWithBids.map(isFourOfAKind));
-console.log(handsWithBids.map(isFullHouse));
-console.log(handsWithBids.map(isThreeOfAKind));
-console.log(handsWithBids.map(isTwoPairs));
-console.log(handsWithBids.map(isOnePair));
+// console.log(handsWithBids.map(isHighCard));
+// console.log(handsWithBids.map(isFiveOfAKind));
+// console.log(handsWithBids.map(isFourOfAKind));
+// console.log(handsWithBids.map(isFullHouse));
+// console.log(handsWithBids.map(isThreeOfAKind));
+// console.log(handsWithBids.map(isTwoPairs));
+// console.log(handsWithBids.map(isOnePair));ˇ
+
+console.log(isFourOfAKind("55T55"));
