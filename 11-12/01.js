@@ -11,7 +11,6 @@ const sampleData = `...#......
 
 // helpers
 const splitIntoLines = (str) => str.split("\n");
-const splitIntoCharacters = (str) => str.split("");
 
 // data
 const universe = splitIntoLines(sampleData).map((line) => line.split(""));
@@ -27,12 +26,14 @@ const expandUniverse = (arr) => {
     if (
       arr.map((line) => (line = line[i])).filter((item) => item === ".")
         .length === arr.length
+        
     ) {
       for (let j = 0; j < arr.length; j++) {
         arr[j] = [...arr[j].slice(0, i + 1), arr[j][i], ...arr[j].slice(i + 1)];
       }
+      i++;
+
     }
-    i++;
   }
   return arr;
 };
@@ -63,11 +64,9 @@ const getDistances = (arr, num) => {
       arr.indexOf(arr.find((line) => line.includes(i))),
       arr[arr.indexOf(arr.find((line) => line.includes(i)))].indexOf(i),
     ];
-    console.log({ i });
 
     const galaxyDistances = [];
-    for (let j = 1; i + j < num; j++) {
-      //console.log(arr.indexOf(arr.find((line) => line.includes(i + j))));
+    for (let j = 1; i + j <= num; j++) {
       const nextGalaxySpot = [
         arr.indexOf(arr.find((line) => line.includes(i + j))),
         arr[arr.indexOf(arr.find((line) => line.includes(i + j)))].indexOf(
@@ -79,11 +78,13 @@ const getDistances = (arr, num) => {
       } else if (galaxySpot[1] === nextGalaxySpot[1]) {
         galaxyDistances.push(Math.abs(galaxySpot[0] - nextGalaxySpot[0]));
       } else {
-        galaxyDistances.push("diagonal");
+        galaxyDistances.push(Math.abs(galaxySpot[0] - nextGalaxySpot[0]) + Math.abs(galaxySpot[1] - nextGalaxySpot[1]));
       }
-      distances.push(galaxyDistances);
     }
+    distances.push(galaxyDistances);
+
   }
   return distances;
 };
-console.log(getDistances(universeExpandedNumbered, galaxyNumber));
+
+console.log(getDistances(universeExpandedNumbered, galaxyNumber).flat().reduce((a, b) => a + b));
